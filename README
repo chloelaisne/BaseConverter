@@ -1,6 +1,6 @@
 BaseConverter is a numeric base converter class.
 
-For the moment, the converter implements:
+The converter implements:
 - Binary to decimal conversion.
 - Decimal to binary conversion.
 
