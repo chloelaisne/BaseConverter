@@ -6,10 +6,10 @@ For the moment, the converter implements:
 
 Example:
 
-//Binary to decimal
+// Binary to decimal
 int binaryNumber = 10000;
-int decimalNumber = [BaseConverter BinaryToDecimal:binaryNumber];
+int decimalNumber = [BaseConverter BinaryToDecimal:binaryNumber]; // The result of the conversion is 16
 
-//Decimal to binary
-int decimalNumber = 10000;
-int binaryNumber = [BaseConverter DecimalToBinary:decimalNumber];
+// Decimal to binary
+int decimalNumber = 16;
+int binaryNumber = [BaseConverter DecimalToBinary:decimalNumber]; // The result of the conversion is 10000
