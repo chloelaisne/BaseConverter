@@ -1,0 +1,15 @@
+BaseConverter is a numeric base converter class.
+
+For the moment, the converter implements:
+- Binary to decimal conversion.
+- Decimal to binary conversion.
+
+Example:
+
+//Binary to decimal
+int binaryNumber = 10000;
+int decimalNumber = [BaseConverter BinaryToDecimal:binaryNumber];
+
+//Decimal to binary
+int decimalNumber = 10000;
+int binaryNumber = [BaseConverter DecimalToBinary:decimalNumber];
