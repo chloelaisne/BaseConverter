@@ -78,4 +78,105 @@
     
 }
 
++ (NSString *)DecimalToHexadecimal:(int)decimalNumber
+{
+    NSMutableDictionary *hexadecimalValues = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    [hexadecimalValues setObject:@"a" forKey:@"10"];
+    
+    [hexadecimalValues setObject:@"b" forKey:@"11"];
+    
+    [hexadecimalValues setObject:@"c" forKey:@"12"];
+    
+    [hexadecimalValues setObject:@"d" forKey:@"13"];
+    
+    [hexadecimalValues setObject:@"e" forKey:@"14"];
+    
+    [hexadecimalValues setObject:@"f" forKey:@"15"];
+    
+    int resultOfTheDivision = decimalNumber;
+    
+    int exponent = 16;
+    
+    NSMutableArray *remaindersOfTheDivision = [[[NSMutableArray alloc] init] autorelease];
+    
+    int latestRemainder;
+    
+    while (resultOfTheDivision > 0)
+    {
+        latestRemainder = resultOfTheDivision % exponent;
+        
+        resultOfTheDivision = resultOfTheDivision / exponent;
+        
+        [remaindersOfTheDivision addObject:[NSNumber numberWithInt:latestRemainder]];
+        
+        NSLog(@"resultOfTheDivision: %i", resultOfTheDivision);
+        
+        NSLog(@"latestRemainder: %i", latestRemainder);
+    }
+    
+    for(int index = 0; index <= [remaindersOfTheDivision count] - 1; index++)
+    {
+        NSString *decimalValueAtIndex = [[[NSString alloc] initWithFormat:@"%@", [remaindersOfTheDivision objectAtIndex:index]] autorelease];
+        
+        NSString *hexadecimalValueAtIndex = [hexadecimalValues objectForKey:decimalValueAtIndex];
+        
+        if (hexadecimalValueAtIndex == NULL)
+        {
+            hexadecimalValueAtIndex = decimalValueAtIndex;
+        }
+        
+        [remaindersOfTheDivision replaceObjectAtIndex:index withObject:hexadecimalValueAtIndex];
+    }
+    
+    NSArray *hexadecimalNumber = [[remaindersOfTheDivision reverseObjectEnumerator] allObjects];
+    
+    return [hexadecimalNumber componentsJoinedByString:@""];
+}
+
++ (int)HexadecimalToDecimal:(NSString *)hexadecimalNumber
+{
+    NSMutableDictionary *hexadecimalValues = [[[NSMutableDictionary alloc] init] autorelease];
+    
+    [hexadecimalValues setObject:@"10" forKey:@"a"];
+    
+    [hexadecimalValues setObject:@"11" forKey:@"b"];
+    
+    [hexadecimalValues setObject:@"12" forKey:@"c"];
+    
+    [hexadecimalValues setObject:@"13" forKey:@"d"];
+    
+    [hexadecimalValues setObject:@"14" forKey:@"e"];
+    
+    [hexadecimalValues setObject:@"15" forKey:@"f"];
+    
+    hexadecimalNumber = [hexadecimalNumber lowercaseString];
+    
+    NSDecimalNumber *decimalNumber = [[[NSDecimalNumber alloc] initWithInteger:0] autorelease];
+    
+    int base = 16;
+    
+    for (int index = 0; index < [hexadecimalNumber length]; index++)
+    {
+        NSString *hexadecimalValueAtIndex = [[[NSString alloc] initWithFormat:@"%C", [hexadecimalNumber characterAtIndex:index]] autorelease];
+        
+        NSString *decimalValueAtIndex = [hexadecimalValues objectForKey:hexadecimalValueAtIndex];
+        
+        if (decimalValueAtIndex == NULL)
+        {
+            decimalValueAtIndex = hexadecimalValueAtIndex;
+        }
+        
+        NSDecimalNumber *resultAtIndex = [[[NSDecimalNumber alloc] initWithString:decimalValueAtIndex] autorelease];
+        
+        NSNumber *powerOfSixteenAtIndex = [[[NSNumber alloc] initWithInt:pow(base, [hexadecimalNumber length] - 1 - index)] autorelease];
+        
+        resultAtIndex = [resultAtIndex decimalNumberByMultiplyingBy:[NSDecimalNumber decimalNumberWithDecimal:[powerOfSixteenAtIndex decimalValue]]];
+        
+        decimalNumber = [decimalNumber decimalNumberByAdding:[NSDecimalNumber decimalNumberWithDecimal:[resultAtIndex decimalValue]]];
+    }
+    
+    return [decimalNumber intValue];
+}
+
 @end
