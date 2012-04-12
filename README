@@ -3,8 +3,10 @@ BaseConverter is a numeric base converter class.
 The converter implements:
 - Binary to decimal conversion.
 - Decimal to binary conversion.
+- Decimal to hexadecimal conversion.
+- Hexadecimal to decimal conversion.
 
-Example:
+Examples:
 
 // Binary to decimal
 int binaryNumber = 10000;
@@ -13,3 +15,10 @@ int decimalNumber = [BaseConverter BinaryToDecimal:binaryNumber]; // The result 
 // Decimal to binary
 int decimalNumber = 16;
 int binaryNumber = [BaseConverter DecimalToBinary:decimalNumber]; // The result of the conversion is 10000
+
+// Decimal to hexadecimal
+int decimalNumber = 255
+NSString *hexadecimalNumber = [BaseConverter DecimalToHexadecimal:decimalNumber]; // The result of the conversion is ff
+
+// Hexadecimal to decimal
+int decimalNumber = [BaseConverter HexadecimalToDecimal:[NSString stringWithFormat:@"ff"]];  // The result of the conversion is 255
